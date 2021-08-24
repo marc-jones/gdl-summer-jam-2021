@@ -23,10 +23,10 @@ func init_indicator():
 
 func _input(event):
 	if event.is_action_pressed("ui_up"):
-		$Indicator.add_new_position(Vector2(0, -1))
+		$Indicator.input(Vector2(0, -1))
 	elif event.is_action_pressed("ui_down"):
-		$Indicator.add_new_position(Vector2(0, 1))
+		$Indicator.input(Vector2(0, 1))
 	elif event.is_action_pressed("ui_left"):
-		$Indicator.add_new_position(Vector2(-1, 0))
+		$Indicator.input(Vector2(-1, 0))
 	elif event.is_action_pressed("ui_right"):
-		$Indicator.add_new_position(Vector2(1, 0))
+		$Indicator.input(Vector2(1, 0))

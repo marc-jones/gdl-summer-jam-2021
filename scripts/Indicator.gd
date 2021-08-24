@@ -93,9 +93,11 @@ func add_section(type, grid_position):
 	sprite.set_position(grid.get_pixel_position(grid_position))
 	add_child(sprite)
 
-func add_new_position(diff):
+func input(diff):
 	var new_position = current_path.back() + diff
-	if (not new_position in current_path and
+	if new_position == current_path[-2]:
+		current_path.pop_back()
+	elif (not new_position in current_path and
 		grid.test_grid_position_in_range(new_position)):
 		current_path.append(new_position)
-		refresh_trail()
+	refresh_trail()
