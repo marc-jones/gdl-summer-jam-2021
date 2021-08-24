@@ -3,14 +3,16 @@ extends Node2D
 var tile_size
 
 var texture_array
-var panel_height = 16
-var panel_width = 24
+var panel_height
+var panel_width
 
 var size
 
 var sprite_references = []
 
-func init(input_texture_array):
+func init(input_texture_array, height, width):
+	panel_height = height
+	panel_width = width
 	texture_array = input_texture_array
 	tile_size = texture_array[0].get_size()
 	size = Vector2(0, 0)

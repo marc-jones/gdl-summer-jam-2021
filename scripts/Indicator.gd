@@ -1,16 +1,6 @@
 extends Node2D
 
 var current_path = [
-	Vector2(4, 5),
-	Vector2(4, 6),
-	Vector2(4, 7),
-	Vector2(5, 7),
-	Vector2(6, 7),
-	Vector2(6, 6),
-	Vector2(7, 6),
-	Vector2(7, 7),
-	Vector2(7, 8),
-	Vector2(6, 8)
 ]
 
 var texture_dict = {
@@ -31,6 +21,7 @@ var texture_dict = {
 }
 
 var grid
+var active = true
 
 func _ready():
 	pass
@@ -41,6 +32,8 @@ func init(grid_ref):
 func refresh_trail():
 	for old_node in get_children():
 		old_node.queue_free()
+	if len(current_path) < 2:
+		return
 	for idx in range(len(current_path)):
 		var prev_diff = null
 		var next_diff = null
@@ -94,10 +87,22 @@ func add_section(type, grid_position):
 	add_child(sprite)
 
 func input(diff):
+	if not active:
+		return
 	var new_position = current_path.back() + diff
-	if new_position == current_path[-2]:
+	if len(current_path) > 1 and new_position == current_path[-2]:
 		current_path.pop_back()
 	elif (not new_position in current_path and
 		grid.test_grid_position_in_range(new_position)):
 		current_path.append(new_position)
 	refresh_trail()
+
+func start_new_path(start_grid_position):
+	current_path = [start_grid_position]
+	refresh_trail()
+
+func set_active(input_bool):
+	active = input_bool
+
+func get_current_path():
+	return(current_path)
