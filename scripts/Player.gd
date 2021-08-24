@@ -8,7 +8,7 @@ var rotation_speed = 1.2*PI
 var grid
 var current_grid_path = []
 var moving = false
-var target_turret_angle = 0
+var mouse_position
 
 func _ready():
 	var _return = $Tween.connect("tween_all_completed", self, "tween_to_next_grid_position")
@@ -35,13 +35,16 @@ func tween_to_next_grid_position():
 	$Tween.interpolate_property(self, "position", position, target, move_time)
 	$Tween.start()
 
-func update_mouse_position(mouse_position):
-	target_turret_angle = get_global_position().angle_to_point(mouse_position)
+func update_mouse_position(input_mouse_position):
+	mouse_position = input_mouse_position
 
 func _process(delta):
 	animate_rotation(delta)
 
 func animate_rotation(delta):
+	var target_turret_angle = 0
+	if mouse_position:
+		target_turret_angle = get_global_position().angle_to_point(mouse_position)
 	var anticlockwise_distance = $Turret.rotation - target_turret_angle
 	var clockwork_distance = target_turret_angle - $Turret.rotation
 	while clockwork_distance < 0:

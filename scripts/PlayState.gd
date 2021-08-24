@@ -6,14 +6,21 @@ var floor_textures = [
 var map_height = 16
 var map_width = 24
 var player_start_grid_position = Vector2(map_width/2, map_height/2)
+var move_timer = 6.0
 
 var map_midpoint
 
 func _ready():
 	map_midpoint = get_viewport_rect().size / 2
+	init_timer()
 	init_map()
 	init_indicator()
 	add_player()
+
+func init_timer():
+	$MoveTimer.connect("timeout", self, "move_timer_callback")
+	$MoveTimer.set_wait_time(move_timer)
+	$MoveTimer.start()
 
 func init_map():
 	$Grid.init(floor_textures, map_height, map_width)
@@ -42,6 +49,11 @@ func player_move_change(moving_bool):
 		$Indicator.start_new_path(
 			$Grid.get_grid_position($Entities/Player.get_position())
 		)
+		$MoveTimer.start()
+
+func move_timer_callback():
+	$Indicator.set_active(false)
+	$Entities/Player.move_along_path($Indicator.get_current_path())
 
 func _input(event):
 	if event.is_action_pressed("ui_up"):
@@ -52,9 +64,12 @@ func _input(event):
 		$Indicator.input(Vector2(-1, 0))
 	elif event.is_action_pressed("ui_right"):
 		$Indicator.input(Vector2(1, 0))
-	elif event.is_action_pressed("ui_accept"):
-		# DEBUG
-		$Entities/Player.move_along_path($Indicator.get_current_path())
-		$Indicator.set_active(false)
 	if event is InputEventMouseMotion:
 		$Entities/Player.update_mouse_position(event.position)
+
+func _process(delta):
+	update_hud()
+
+func update_hud():
+	# DEBUG
+	$Label.text = str(round($MoveTimer.get_time_left()))

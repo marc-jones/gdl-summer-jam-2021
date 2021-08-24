@@ -13,3 +13,15 @@ script = ExtResource( 2 )
 script = ExtResource( 3 )
 
 [node name="Entities" type="Node2D" parent="."]
+
+[node name="MoveTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="Label" type="Label" parent="."]
+margin_right = 40.0
+margin_bottom = 14.0
+rect_scale = Vector2( 4, 4 )
+text = "TEST"
+__meta__ = {
+"_edit_use_anchors_": false
+}
