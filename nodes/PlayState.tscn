@@ -12,10 +12,14 @@ script = ExtResource( 2 )
 [node name="Indicator" type="Node2D" parent="."]
 script = ExtResource( 3 )
 
+[node name="Projectiles" type="Node2D" parent="."]
+
 [node name="Entities" type="Node2D" parent="."]
 
 [node name="MoveTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="ProjectileTimer" type="Timer" parent="."]
 
 [node name="Label" type="Label" parent="."]
 margin_right = 40.0

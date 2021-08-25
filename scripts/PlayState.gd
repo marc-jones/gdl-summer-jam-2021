@@ -7,25 +7,36 @@ var map_height = 16
 var map_width = 24
 var player_start_grid_position = Vector2(map_width/2, map_height/2)
 var move_timer = 6.0
+var packed_projectile = preload("res://nodes/Projectile.tscn")
+var projectile_timer = 0.5
+var projectile_offset = Vector2(-24, 0)
 
 var map_midpoint
 
 func _ready():
 	map_midpoint = get_viewport_rect().size / 2
-	init_timer()
+	init_move_timer()
+	init_projectile_timer()
 	init_map()
 	init_indicator()
 	add_player()
 
-func init_timer():
+func init_move_timer():
 	var _discard = $MoveTimer.connect("timeout", self, "move_timer_callback")
 	$MoveTimer.set_wait_time(move_timer)
 	$MoveTimer.start()
+
+func init_projectile_timer():
+	var _discard = $ProjectileTimer.connect("timeout", self, "projectile_timer_callback")
+	$ProjectileTimer.set_one_shot(true)
+	$ProjectileTimer.set_wait_time(projectile_timer)
+	$ProjectileTimer.start()
 
 func init_map():
 	$Grid.init(floor_textures, map_height, map_width)
 	$Grid.set_position(map_midpoint)
 	$Entities.set_position(map_midpoint)
+	$Projectiles.set_position(map_midpoint)
 
 func init_indicator():
 	$Indicator.init($Grid)
@@ -73,3 +84,17 @@ func _process(_delta):
 func update_hud():
 	# DEBUG
 	$Label.text = str(round($MoveTimer.get_time_left()))
+
+func projectile_timer_callback():
+	spawn_projectile()
+	$ProjectileTimer.set_wait_time(projectile_timer)
+	$ProjectileTimer.start()
+
+func spawn_projectile():
+	var projectile = packed_projectile.instance()
+	var projectile_angle = $Entities/Player/Turret.get_rotation()
+	projectile.set_position(
+		$Entities/Player.get_position() + projectile_offset.rotated(projectile_angle)
+	)
+	projectile.set_rotation(projectile_angle)
+	$Projectiles.add_child(projectile)
