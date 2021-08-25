@@ -10,6 +10,7 @@ var move_timer = 6.0
 var packed_projectile = preload("res://nodes/Projectile.tscn")
 var projectile_timer = 0.5
 var projectile_offset = Vector2(-24, 0)
+var wall_width = 10
 
 var map_midpoint
 
@@ -37,12 +38,55 @@ func init_map():
 	$Grid.set_position(map_midpoint)
 	$Entities.set_position(map_midpoint)
 	$Projectiles.set_position(map_midpoint)
+	setup_walls()
 
 func init_indicator():
 	$Indicator.init($Grid)
 	$Indicator.start_new_path(player_start_grid_position)
 	$Indicator.refresh_trail()
 	$Indicator.set_position(map_midpoint)
+
+func setup_walls():
+	# Top
+	var top_wall = StaticBody2D.new()
+	top_wall.add_to_group("walls")
+	var horizontal_collision_shape = CollisionShape2D.new()
+	var horizontal_shape = RectangleShape2D.new()
+	horizontal_shape.extents = Vector2($Grid.size.x/2 + wall_width*2, wall_width)
+	horizontal_collision_shape.shape = horizontal_shape
+	top_wall.add_child(horizontal_collision_shape)
+	top_wall.set_position(map_midpoint - Vector2(0, $Grid.size.y/2 + wall_width))
+	add_child(top_wall)
+	# Bottom
+	var bottom_wall = StaticBody2D.new()
+	bottom_wall.add_to_group("walls")
+	horizontal_collision_shape = CollisionShape2D.new()
+	horizontal_shape = RectangleShape2D.new()
+	horizontal_shape.extents = Vector2($Grid.size.x/2 + wall_width*2, wall_width)
+	horizontal_collision_shape.shape = horizontal_shape
+	bottom_wall.add_child(horizontal_collision_shape)
+	bottom_wall.set_position(map_midpoint + Vector2(0, $Grid.size.y/2 + wall_width))
+	add_child(bottom_wall)
+	# Left
+	var left_wall = StaticBody2D.new()
+	left_wall.add_to_group("walls")
+	var vertical_collision_shape = CollisionShape2D.new()
+	var vertical_shape = RectangleShape2D.new()
+	vertical_shape.extents = Vector2(wall_width, $Grid.size.y/2 + wall_width*2)
+	vertical_collision_shape.shape = vertical_shape
+	left_wall.add_child(vertical_collision_shape)
+	left_wall.set_position(map_midpoint - Vector2($Grid.size.x/2 + wall_width, 0))
+	add_child(left_wall)
+	# Right
+	var right_wall = StaticBody2D.new()
+	right_wall.add_to_group("walls")
+	vertical_collision_shape = CollisionShape2D.new()
+	vertical_shape = RectangleShape2D.new()
+	vertical_shape.extents = Vector2(wall_width, $Grid.size.y/2 + wall_width*2)
+	vertical_collision_shape.shape = vertical_shape
+	right_wall.add_child(vertical_collision_shape)
+	right_wall.set_position(map_midpoint + Vector2($Grid.size.x/2 + wall_width, 0))
+	add_child(right_wall)
 
 func add_player():
 	var packed_player = load("res://nodes/Player.tscn")

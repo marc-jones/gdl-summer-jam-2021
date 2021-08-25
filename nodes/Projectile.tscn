@@ -26,6 +26,8 @@ local_coords = false
 process_material = SubResource( 2 )
 texture = ExtResource( 3 )
 
+[node name="DeathTimer" type="Timer" parent="Particles2D"]
+
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
 
