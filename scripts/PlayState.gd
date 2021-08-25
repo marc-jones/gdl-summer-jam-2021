@@ -18,7 +18,7 @@ func _ready():
 	add_player()
 
 func init_timer():
-	$MoveTimer.connect("timeout", self, "move_timer_callback")
+	var _discard = $MoveTimer.connect("timeout", self, "move_timer_callback")
 	$MoveTimer.set_wait_time(move_timer)
 	$MoveTimer.start()
 
@@ -67,7 +67,7 @@ func _input(event):
 	if event is InputEventMouseMotion:
 		$Entities/Player.update_mouse_position(event.position)
 
-func _process(delta):
+func _process(_delta):
 	update_hud()
 
 func update_hud():
