@@ -154,7 +154,7 @@ func init_enemy_spawner():
 
 func enemy_timer_callback():
 	var enemy = packed_enemy.instance()
-	enemy.init($Entities/Player)
+	enemy.init($Entities/Player, $Navigation2D)
 	var enemy_position = $Entities/Player.get_position()
 	while (enemy_position.distance_to($Entities/Player.get_position()) <
 		player_dead_zone_radius):
