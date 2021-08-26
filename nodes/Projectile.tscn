@@ -5,12 +5,15 @@
 [ext_resource path="res://assets/sprites/projectile/projectile_particle.png" type="Texture" id=3]
 
 [sub_resource type="ParticlesMaterial" id=1]
+lifetime_randomness = 1.0
 flag_disable_z = true
-spread = 10.0
+spread = 20.0
 gravity = Vector3( 0, 0, 0 )
 initial_velocity = 20.0
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
+scale = 0.4
+scale_random = 1.0
 
 [sub_resource type="CapsuleShape2D" id=2]
 radius = 3.0
