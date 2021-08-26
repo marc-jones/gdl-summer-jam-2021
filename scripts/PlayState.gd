@@ -13,6 +13,7 @@ var projectile_offset = Vector2(-24, 0)
 var wall_width = 10
 var packed_enemy = preload("res://nodes/Enemy.tscn")
 var enemy_timer = 1.6
+var player_dead_zone_radius = 200
 
 var map_midpoint
 
@@ -154,10 +155,12 @@ func init_enemy_spawner():
 func enemy_timer_callback():
 	var enemy = packed_enemy.instance()
 	enemy.init($Entities/Player)
-	enemy.set_position(
-		Vector2(
+	var enemy_position = $Entities/Player.get_position()
+	while (enemy_position.distance_to($Entities/Player.get_position()) <
+		player_dead_zone_radius):
+		enemy_position = Vector2(
 			rand_range(-$Grid.size.x/2, $Grid.size.x/2),
 			rand_range(-$Grid.size.y/2, $Grid.size.y/2)
 		)
-	)
+	enemy.set_position(enemy_position)
 	$Entities.add_child(enemy)
