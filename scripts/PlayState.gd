@@ -12,6 +12,7 @@ var projectile_timer = 0.5
 var projectile_offset = Vector2(-24, 0)
 var wall_width = 10
 var packed_enemy = preload("res://nodes/Enemy.tscn")
+var enemy_timer = 1.6
 
 var map_midpoint
 
@@ -21,6 +22,7 @@ func _ready():
 	init_projectile_timer()
 	init_map()
 	init_indicator()
+	init_enemy_spawner()
 	add_player()
 
 func init_move_timer():
@@ -143,3 +145,19 @@ func spawn_projectile():
 	)
 	projectile.set_rotation(projectile_angle)
 	$Projectiles.add_child(projectile)
+
+func init_enemy_spawner():
+	var _discard = $EnemyTimer.connect("timeout", self, "enemy_timer_callback")
+	$EnemyTimer.set_wait_time(enemy_timer)
+	$EnemyTimer.start()
+
+func enemy_timer_callback():
+	var enemy = packed_enemy.instance()
+	enemy.init($Entities/Player)
+	enemy.set_position(
+		Vector2(
+			rand_range(-$Grid.size.x/2, $Grid.size.x/2),
+			rand_range(-$Grid.size.y/2, $Grid.size.y/2)
+		)
+	)
+	$Entities.add_child(enemy)
