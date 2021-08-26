@@ -11,6 +11,9 @@ func _physics_process(delta):
 func body_entered_callback(body):
 	if body.is_in_group("walls"):
 		destroy()
+	elif body.is_in_group("enemies"):
+		destroy()
+		body.destroy()
 
 func destroy():
 	if not is_queued_for_deletion():

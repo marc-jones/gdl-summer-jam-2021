@@ -11,6 +11,7 @@ var packed_projectile = preload("res://nodes/Projectile.tscn")
 var projectile_timer = 0.5
 var projectile_offset = Vector2(-24, 0)
 var wall_width = 10
+var packed_enemy = preload("res://nodes/Enemy.tscn")
 
 var map_midpoint
 
