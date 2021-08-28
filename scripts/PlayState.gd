@@ -137,12 +137,11 @@ func enemy_timer_callback():
 		var enemy = packed_enemy.instance()
 		enemy.init($Entities/Player, $Navigation2D)
 		var enemy_position = $Entities/Player.get_position()
+		var possible_grid_positions = $Navigation2D/TileMap.get_used_cells_by_id(0)
+		possible_grid_positions.shuffle()
 		while (enemy_position.distance_to($Entities/Player.get_position()) <
 			player_dead_zone_radius):
-			enemy_position = Vector2(
-				rand_range(-$Grid.size.x/2, $Grid.size.x/2),
-				rand_range(-$Grid.size.y/2, $Grid.size.y/2)
-			)
+			enemy_position = $Grid.get_pixel_position(possible_grid_positions.pop_front())
 		enemy.set_position(enemy_position)
 		enemy.connect("enemy_killed", self, "enemy_died_callback")
 		$Entities.add_child(enemy)
