@@ -18,7 +18,6 @@ var player_dead_zone_radius = 200
 var map_midpoint
 
 func _ready():
-	map_midpoint = get_viewport_rect().size / 2
 	init_move_timer()
 	init_projectile_timer()
 	init_map()
@@ -39,6 +38,7 @@ func init_projectile_timer():
 
 func init_map():
 	$Grid.init(floor_textures, map_height, map_width)
+	map_midpoint = $Navigation2D.get_position() + $Grid.size / 2
 	$Grid.set_position(map_midpoint)
 	$Entities.set_position(map_midpoint)
 	$Projectiles.set_position(map_midpoint)
@@ -90,8 +90,7 @@ func _process(_delta):
 	update_hud()
 
 func update_hud():
-	# DEBUG
-	$Label.text = str(round($MoveTimer.get_time_left()))
+	$HUD/FreezeIndicator.update_sprites($MoveTimer.get_time_left())
 
 func projectile_timer_callback():
 	spawn_projectile()
