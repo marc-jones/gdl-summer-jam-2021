@@ -7,8 +7,8 @@ var current_value = 1.0
 var lag_value = current_value
 var update_timer = 0.0
 
-func take_damage(amount):
-	current_value -= amount
+func set_health(amount):
+	current_value = amount
 	update_timer = update_delay
 
 func _process(delta):

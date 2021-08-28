@@ -4,7 +4,7 @@
 [ext_resource path="res://scripts/Projectile.gd" type="Script" id=2]
 [ext_resource path="res://assets/sprites/projectile/projectile_particle.png" type="Texture" id=3]
 
-[sub_resource type="ParticlesMaterial" id=1]
+[sub_resource type="ParticlesMaterial" id=3]
 lifetime_randomness = 1.0
 flag_disable_z = true
 spread = 20.0
@@ -26,7 +26,7 @@ script = ExtResource( 2 )
 position = Vector2( 8, 0 )
 amount = 32
 local_coords = false
-process_material = SubResource( 1 )
+process_material = SubResource( 3 )
 texture = ExtResource( 3 )
 
 [node name="DeathTimer" type="Timer" parent="Particles2D"]

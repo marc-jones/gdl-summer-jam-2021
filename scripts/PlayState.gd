@@ -13,6 +13,8 @@ var wall_width = 10
 var packed_enemy = preload("res://nodes/Enemy.tscn")
 var enemy_timer = 1.6
 var player_dead_zone_radius = 200
+var packed_pickup = preload("res://nodes/Pickup.tscn")
+var pickup_timer = 5.0
 
 var max_projectile_timer = 0.05
 var min_projectile_timer = 0.8
@@ -25,6 +27,7 @@ var score = 0
 func _ready():
 	init_move_timer()
 	init_projectile_timer()
+	init_pickup_timer()
 	init_map()
 	init_indicator()
 	init_enemy_spawner()
@@ -41,12 +44,19 @@ func init_projectile_timer():
 	$ProjectileTimer.set_wait_time(projectile_timer)
 	$ProjectileTimer.start()
 
+func init_pickup_timer():
+	var _discard = $PickupTimer.connect("timeout", self, "pickup_timer_callback")
+	$PickupTimer.set_one_shot(true)
+	$PickupTimer.set_wait_time(pickup_timer)
+	$PickupTimer.start()
+
 func init_map():
 	$Grid.init(floor_textures, map_height, map_width)
 	map_midpoint = $Navigation2D.get_position() + $Grid.size / 2
 	$Grid.set_position(map_midpoint)
 	$Entities.set_position(map_midpoint)
 	$Projectiles.set_position(map_midpoint)
+	$Pickups.set_position(map_midpoint)
 
 func init_indicator():
 	$Indicator.init(
@@ -60,7 +70,7 @@ func init_indicator():
 func add_player():
 	var packed_player = load("res://nodes/Player.tscn")
 	var player = packed_player.instance()
-	player.connect("damage", $HUD/HealthIndicator, "take_damage")
+	player.connect("player_health_change", $HUD/HealthIndicator, "set_health")
 	player.connect("player_died", self, "player_died_callback")
 	player.init($Grid)
 	player.set_grid_position(player_start_grid_position)
@@ -126,6 +136,44 @@ func spawn_projectile():
 	)
 	projectile.set_rotation(projectile_angle)
 	$Projectiles.add_child(projectile)
+
+func pickup_timer_callback():
+	if $Entities.has_node("Player"):
+		spawn_pickup()
+	$PickupTimer.set_wait_time(pickup_timer)
+	$PickupTimer.start()
+
+func spawn_pickup():
+	var current_pickups = $Pickups.get_children()
+	if $Entities.has_node("Player") and len(current_pickups) < 2:
+		var has_health = false
+		for pickup in current_pickups:
+			if pickup.pickup_type == "health":
+				has_health = true
+		var pickup = packed_pickup.instance()
+		pickup.connect("pickup", self, "pickup_callback")
+		if $Entities/Player.health == 10 or has_health:
+			pickup.fire_rate_pickup()
+		else:
+			if randf() < 0.5:
+				pickup.fire_rate_pickup()
+			else:
+				pickup.health_pickup()
+		var pickup_position = $Entities/Player.get_position()
+		var possible_grid_positions = $Navigation2D/TileMap.get_used_cells_by_id(0)
+		possible_grid_positions.shuffle()
+		while (pickup_position.distance_to($Entities/Player.get_position()) <
+			player_dead_zone_radius):
+			pickup_position = $Grid.get_pixel_position(possible_grid_positions.pop_front())
+		pickup.set_position(pickup_position)
+		$Pickups.add_child(pickup)
+
+func pickup_callback(pickup_type):
+	match pickup_type:
+		"fire_rate":
+			projectile_timer = max_projectile_timer
+		"health":
+			$Entities/Player.heal()
 
 func init_enemy_spawner():
 	var _discard = $EnemyTimer.connect("timeout", self, "enemy_timer_callback")

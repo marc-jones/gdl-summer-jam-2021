@@ -1,15 +1,16 @@
 extends StaticBody2D
 
 signal moving_change
-signal damage
+signal player_health_change
 signal player_died
 
 var move_time = 0.4
 var rotation_speed = 1.2*PI
-var damage_amount = 0.1
+var damage_amount = 1
+var heal_amount = 2
 var packed_death_particles = preload("res://nodes/PlayerDeathParticles.tscn")
 
-var health = 1.0
+var health = 10
 var grid
 var current_grid_path = []
 var moving = false
@@ -100,10 +101,14 @@ func tracks_rotate():
 	$Base/RightTrack.flip_v = false
 
 func damage():
-	emit_signal("damage", damage_amount)
-	health = clamp(health-damage_amount, 0.0, 1.0)
-	if health < 0.01:
+	health = clamp(health-damage_amount, 0, 10)
+	emit_signal("player_health_change", health/10.0)
+	if health == 0:
 		destroy()
+
+func heal():
+	health = clamp(health+heal_amount, 0, 10)
+	emit_signal("player_health_change", health/10.0)
 
 func destroy():
 	if not is_queued_for_deletion():
