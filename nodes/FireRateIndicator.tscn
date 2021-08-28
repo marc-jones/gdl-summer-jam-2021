@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://assets/sprites/fire_rate_indicator/dial.png" type="Texture" id=1]
+[ext_resource path="res://assets/sprites/fire_rate_indicator/needle.png" type="Texture" id=2]
+[ext_resource path="res://scripts/FireRateIndicator.gd" type="Script" id=3]
+
+[node name="FireRateIndicator" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="Dial" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+offset = Vector2( 0.5, 0.5 )
+
+[node name="Needle" type="Sprite" parent="."]
+position = Vector2( 0, 15 )
+rotation = 1.5708
+texture = ExtResource( 2 )
+offset = Vector2( 0, -14.5 )

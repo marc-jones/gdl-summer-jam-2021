@@ -8,13 +8,17 @@ var map_width = 24
 var player_start_grid_position = Vector2(map_width/2, map_height/2)
 var move_timer = 6.0
 var packed_projectile = preload("res://nodes/Projectile.tscn")
-var projectile_timer = 0.5
 var projectile_offset = Vector2(-24, 0)
 var wall_width = 10
 var packed_enemy = preload("res://nodes/Enemy.tscn")
 var enemy_timer = 1.6
 var player_dead_zone_radius = 200
 
+var max_projectile_timer = 0.05
+var min_projectile_timer = 0.8
+var projectile_timer_decay_rate = 0.05
+
+var projectile_timer = (max_projectile_timer + min_projectile_timer) / 2
 var map_midpoint
 
 func _ready():
@@ -86,11 +90,22 @@ func _input(event):
 	if event is InputEventMouseMotion:
 		$Entities/Player.update_mouse_position(event.position)
 
-func _process(_delta):
+func _process(delta):
+	update_rates(delta)
 	update_hud()
 
 func update_hud():
 	$HUD/FreezeIndicator.update_sprites($MoveTimer.get_time_left())
+	$HUD/FireRateIndicator.update_needle(
+		(projectile_timer-min_projectile_timer) / (max_projectile_timer-min_projectile_timer)
+	)
+
+func update_rates(delta):
+	projectile_timer = clamp(
+		projectile_timer + projectile_timer_decay_rate*delta,
+		max_projectile_timer,
+		min_projectile_timer
+	)
 
 func projectile_timer_callback():
 	spawn_projectile()
