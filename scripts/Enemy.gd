@@ -19,8 +19,8 @@ func init(player_ref, nav_ref):
 func _physics_process(_delta):
 	if is_instance_valid(player) and not player.is_queued_for_deletion():
 		var path = nav.get_simple_path(
-			nav.to_local(get_global_position()).round(),
-			nav.to_local(player.get_global_position()).round()
+			nav.get_closest_point(nav.to_local(get_global_position())),
+			nav.to_local(player.get_global_position())
 		)
 		velocity = (nav.to_global(path[1]) - get_global_position()).normalized() * speed
 		velocity = move_and_slide(velocity)
