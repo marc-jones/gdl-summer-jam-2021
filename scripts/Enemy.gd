@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+signal enemy_killed
+
 var speed = 80
 var packed_death_particles = preload("res://nodes/DeathParticles.tscn")
 

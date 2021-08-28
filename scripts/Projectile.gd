@@ -13,6 +13,7 @@ func body_entered_callback(body):
 		destroy()
 	elif body.is_in_group("enemies"):
 		destroy()
+		body.emit_signal("enemy_killed")
 		body.destroy()
 
 func destroy():

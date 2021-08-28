@@ -20,6 +20,7 @@ var projectile_timer_decay_rate = 0.05
 
 var projectile_timer = (max_projectile_timer + min_projectile_timer) / 2
 var map_midpoint
+var score = 0
 
 func _ready():
 	init_move_timer()
@@ -60,6 +61,7 @@ func add_player():
 	var packed_player = load("res://nodes/Player.tscn")
 	var player = packed_player.instance()
 	player.connect("damage", $HUD/HealthIndicator, "take_damage")
+	player.connect("player_died", self, "player_died_callback")
 	player.init($Grid)
 	player.set_grid_position(player_start_grid_position)
 	var _return = player.connect("moving_change", self, "player_move_change")
@@ -81,16 +83,16 @@ func move_timer_callback():
 		$Entities/Player.move_along_path($Indicator.get_current_path())
 
 func _input(event):
-	if event.is_action_pressed("ui_up"):
-		$Indicator.input(Vector2(0, -1))
-	elif event.is_action_pressed("ui_down"):
-		$Indicator.input(Vector2(0, 1))
-	elif event.is_action_pressed("ui_left"):
-		$Indicator.input(Vector2(-1, 0))
-	elif event.is_action_pressed("ui_right"):
-		$Indicator.input(Vector2(1, 0))
-	if event is InputEventMouseMotion:
-		if $Entities.has_node("Player"):
+	if $Entities.has_node("Player"):
+		if event.is_action_pressed("ui_up"):
+			$Indicator.input(Vector2(0, -1))
+		elif event.is_action_pressed("ui_down"):
+			$Indicator.input(Vector2(0, 1))
+		elif event.is_action_pressed("ui_left"):
+			$Indicator.input(Vector2(-1, 0))
+		elif event.is_action_pressed("ui_right"):
+			$Indicator.input(Vector2(1, 0))
+		if event is InputEventMouseMotion:
 			$Entities/Player.update_mouse_position(event.position)
 
 func _process(delta):
@@ -142,4 +144,14 @@ func enemy_timer_callback():
 				rand_range(-$Grid.size.y/2, $Grid.size.y/2)
 			)
 		enemy.set_position(enemy_position)
+		enemy.connect("enemy_killed", self, "enemy_died_callback")
 		$Entities.add_child(enemy)
+
+func enemy_died_callback():
+	score += 1
+	$HUD/Score/Number.text = str(score)
+
+func player_died_callback(player_death_particles):
+	$Indicator.start_new_path(Vector2(0, 0))
+	$Indicator.refresh_trail()
+	print(player_death_particles)

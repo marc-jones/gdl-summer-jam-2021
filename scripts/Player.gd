@@ -2,6 +2,7 @@ extends StaticBody2D
 
 signal moving_change
 signal damage
+signal player_died
 
 var move_time = 0.4
 var rotation_speed = 1.2*PI
@@ -109,4 +110,5 @@ func destroy():
 		var particles = packed_death_particles.instance()
 		particles.set_position(get_position())
 		get_parent().add_child(particles)
+		emit_signal("player_died", particles)
 		queue_free()

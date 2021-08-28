@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://nodes/Grid.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scripts/PlayState.gd" type="Script" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://nodes/FreezeIndicator.tscn" type="PackedScene" id=6]
 [ext_resource path="res://nodes/FireRateIndicator.tscn" type="PackedScene" id=7]
 [ext_resource path="res://nodes/HealthIndicator.tscn" type="PackedScene" id=8]
+[ext_resource path="res://assets/fonts/ThaleahFat.ttf" type="DynamicFontData" id=9]
 
 [sub_resource type="NavigationPolygon" id=16]
 vertices = PoolVector2Array( 32, 32, 0, 32, 0, 0, 32, 0 )
@@ -153,6 +154,16 @@ points = PoolVector2Array( 24, 32, 8, 32, 8, 0, 24, 0 )
 } ]
 1/z_index = 0
 
+[sub_resource type="DynamicFont" id=17]
+size = 32
+font_data = ExtResource( 9 )
+
+[sub_resource type="DynamicFont" id=18]
+size = 32
+outline_size = 4
+outline_color = Color( 0.737255, 0.290196, 0.607843, 1 )
+font_data = ExtResource( 9 )
+
 [node name="PlayState" type="Node2D"]
 script = ExtResource( 2 )
 
@@ -178,14 +189,91 @@ script = ExtResource( 3 )
 
 [node name="HUD" type="Node2D" parent="."]
 
-[node name="FireRateIndicator" parent="HUD" instance=ExtResource( 7 )]
-position = Vector2( 88, 428.78 )
+[node name="Score" type="Node2D" parent="HUD"]
+position = Vector2( 88, 44 )
+
+[node name="Label" type="Label" parent="HUD/Score"]
+margin_left = -87.0
+margin_top = -38.0
+margin_right = 87.0
+margin_bottom = 27.0
+custom_fonts/font = SubResource( 17 )
+custom_colors/font_color = Color( 1, 0.847059, 0.729412, 1 )
+text = "SCORE"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Number" type="Label" parent="HUD/Score"]
+margin_left = -87.0
+margin_top = -12.0
+margin_right = 87.0
+margin_bottom = 53.0
+custom_fonts/font = SubResource( 18 )
+custom_colors/font_color = Color( 1, 0.847059, 0.729412, 1 )
+text = "0"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HealthLabel" type="Node2D" parent="HUD"]
+position = Vector2( 88, 110 )
+
+[node name="Label" type="Label" parent="HUD/HealthLabel"]
+margin_left = -87.0
+margin_top = -38.0
+margin_right = 87.0
+margin_bottom = 27.0
+custom_fonts/font = SubResource( 17 )
+custom_colors/font_color = Color( 1, 0.847059, 0.729412, 1 )
+text = "HEALTH"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="HealthIndicator" parent="HUD" instance=ExtResource( 8 )]
-position = Vector2( 88, 260.411 )
+position = Vector2( 88, 230 )
+
+[node name="FireRateLabel" type="Node2D" parent="HUD"]
+position = Vector2( 88, 405 )
+
+[node name="Label" type="Label" parent="HUD/FireRateLabel"]
+margin_left = -87.0
+margin_top = -38.0
+margin_right = 87.0
+margin_bottom = 27.0
+custom_fonts/font = SubResource( 17 )
+custom_colors/font_color = Color( 1, 0.847059, 0.729412, 1 )
+text = "FIRE RATE"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FireRateIndicator" parent="HUD" instance=ExtResource( 7 )]
+position = Vector2( 88, 420 )
+
+[node name="FreezeLabel" type="Node2D" parent="HUD"]
+position = Vector2( 88, 500 )
+
+[node name="Label" type="Label" parent="HUD/FreezeLabel"]
+margin_left = -87.0
+margin_top = -38.0
+margin_right = 87.0
+margin_bottom = 27.0
+custom_fonts/font = SubResource( 17 )
+custom_colors/font_color = Color( 1, 0.847059, 0.729412, 1 )
+text = "FREEZE"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="FreezeIndicator" parent="HUD" instance=ExtResource( 6 )]
-position = Vector2( 88, 525.43 )
+position = Vector2( 88, 540 )
 
 [node name="MoveTimer" type="Timer" parent="."]
 one_shot = true
