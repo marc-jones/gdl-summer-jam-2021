@@ -18,7 +18,7 @@ var pickup_timer = 5.0
 
 var max_projectile_timer = 0.05
 var min_projectile_timer = 0.8
-var projectile_timer_decay_rate = 0.05
+var projectile_timer_decay_rate = 0.025
 
 var projectile_timer = (max_projectile_timer + min_projectile_timer) / 2
 var map_midpoint
@@ -112,9 +112,10 @@ func _process(delta):
 
 func update_hud():
 	$HUD/FreezeIndicator.update_sprites($MoveTimer.get_time_left())
-	$HUD/FireRateIndicator.update_needle(
-		(projectile_timer-min_projectile_timer) / (max_projectile_timer-min_projectile_timer)
-	)
+	var fire_rate_t = (projectile_timer-min_projectile_timer) / (max_projectile_timer-min_projectile_timer)
+	$HUD/FireRateIndicator.update_needle(fire_rate_t)
+	if $Entities.has_node("Player"):
+		$Entities/Player.update_rotation_speed(fire_rate_t)
 
 func update_rates(delta):
 	projectile_timer = clamp(

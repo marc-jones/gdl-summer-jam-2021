@@ -5,11 +5,14 @@ signal player_health_change
 signal player_died
 
 var move_time = 0.4
-var rotation_speed = 1.2*PI
 var damage_amount = 1
 var heal_amount = 2
 var packed_death_particles = preload("res://nodes/PlayerDeathParticles.tscn")
 
+var max_rotation_speed = 2*PI
+var min_rotation_speed = 1.2*PI
+
+var rotation_speed = (max_rotation_speed+min_rotation_speed) / 2.0
 var health = 10
 var grid
 var current_grid_path = []
@@ -117,3 +120,6 @@ func destroy():
 		get_parent().add_child(particles)
 		emit_signal("player_died", particles)
 		queue_free()
+
+func update_rotation_speed(t):
+	rotation_speed = lerp(min_rotation_speed, max_rotation_speed, t)
