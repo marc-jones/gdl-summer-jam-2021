@@ -45,7 +45,10 @@ func init_map():
 	setup_walls()
 
 func init_indicator():
-	$Indicator.init($Grid)
+	$Indicator.init(
+		$Grid,
+		$Navigation2D/TileMap.get_used_cells_by_id(1)
+	)
 	$Indicator.start_new_path(player_start_grid_position)
 	$Indicator.refresh_trail()
 	$Indicator.set_position(map_midpoint)

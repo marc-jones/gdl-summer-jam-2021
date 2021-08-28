@@ -21,13 +21,15 @@ var texture_dict = {
 }
 
 var grid
+var wall_positions
 var active = true
 
 func _ready():
 	pass
 
-func init(grid_ref):
+func init(grid_ref, wall_positions_ref):
 	grid = grid_ref
+	wall_positions = wall_positions_ref
 
 func refresh_trail():
 	for old_node in get_children():
@@ -93,7 +95,8 @@ func input(diff):
 	if len(current_path) > 1 and new_position == current_path[-2]:
 		current_path.pop_back()
 	elif (not new_position in current_path and
-		grid.test_grid_position_in_range(new_position)):
+		grid.test_grid_position_in_range(new_position) and
+		not new_position in wall_positions):
 		current_path.append(new_position)
 	refresh_trail()
 
