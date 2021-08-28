@@ -11,7 +11,6 @@ script = ExtResource( 3 )
 [node name="Particles2" type="Particles2D" parent="."]
 emitting = false
 amount = 64
-lifetime = 0.6
 one_shot = true
 explosiveness = 1.0
 process_material = ExtResource( 4 )
@@ -20,7 +19,6 @@ texture = ExtResource( 2 )
 [node name="Particles1" type="Particles2D" parent="."]
 emitting = false
 amount = 64
-lifetime = 0.6
 one_shot = true
 explosiveness = 1.0
 process_material = ExtResource( 4 )

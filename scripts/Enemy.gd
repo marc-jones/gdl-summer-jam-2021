@@ -15,18 +15,19 @@ func init(player_ref, nav_ref):
 	nav = nav_ref
 
 func _physics_process(_delta):
-	var path = nav.get_simple_path(
-		nav.to_local(get_global_position()),
-		nav.to_local(player.get_global_position())
-	)
-	velocity = (nav.to_global(path[1]) - get_global_position()).normalized() * speed
-	velocity = move_and_slide(velocity)
-	for i in get_slide_count():
-		var collision = get_slide_collision(i)
-		if collision.collider.is_in_group("player"):
-			if not is_queued_for_deletion():
-				collision.collider.damage()
-				destroy()
+	if is_instance_valid(player) and not player.is_queued_for_deletion():
+		var path = nav.get_simple_path(
+			nav.to_local(get_global_position()),
+			nav.to_local(player.get_global_position())
+		)
+		velocity = (nav.to_global(path[1]) - get_global_position()).normalized() * speed
+		velocity = move_and_slide(velocity)
+		for i in get_slide_count():
+			var collision = get_slide_collision(i)
+			if collision.collider.is_in_group("player"):
+				if not is_queued_for_deletion():
+					collision.collider.damage()
+					destroy()
 
 func destroy():
 	if not is_queued_for_deletion():

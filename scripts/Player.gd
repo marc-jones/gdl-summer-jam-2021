@@ -6,6 +6,7 @@ signal damage
 var move_time = 0.4
 var rotation_speed = 1.2*PI
 var damage_amount = 0.1
+var packed_death_particles = preload("res://nodes/PlayerDeathParticles.tscn")
 
 var health = 1.0
 var grid
@@ -98,5 +99,14 @@ func tracks_rotate():
 	$Base/RightTrack.flip_v = false
 
 func damage():
-	health = clamp(health-damage_amount, 0.0, 1.0)
 	emit_signal("damage", damage_amount)
+	health = clamp(health-damage_amount, 0.0, 1.0)
+	if health < 0.01:
+		destroy()
+
+func destroy():
+	if not is_queued_for_deletion():
+		var particles = packed_death_particles.instance()
+		particles.set_position(get_position())
+		get_parent().add_child(particles)
+		queue_free()

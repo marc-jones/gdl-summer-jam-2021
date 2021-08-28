@@ -77,7 +77,8 @@ func player_move_change(moving_bool):
 
 func move_timer_callback():
 	$Indicator.set_active(false)
-	$Entities/Player.move_along_path($Indicator.get_current_path())
+	if $Entities.has_node("Player"):
+		$Entities/Player.move_along_path($Indicator.get_current_path())
 
 func _input(event):
 	if event.is_action_pressed("ui_up"):
@@ -89,7 +90,8 @@ func _input(event):
 	elif event.is_action_pressed("ui_right"):
 		$Indicator.input(Vector2(1, 0))
 	if event is InputEventMouseMotion:
-		$Entities/Player.update_mouse_position(event.position)
+		if $Entities.has_node("Player"):
+			$Entities/Player.update_mouse_position(event.position)
 
 func _process(delta):
 	update_rates(delta)
@@ -109,7 +111,8 @@ func update_rates(delta):
 	)
 
 func projectile_timer_callback():
-	spawn_projectile()
+	if $Entities.has_node("Player"):
+		spawn_projectile()
 	$ProjectileTimer.set_wait_time(projectile_timer)
 	$ProjectileTimer.start()
 
@@ -128,14 +131,15 @@ func init_enemy_spawner():
 	$EnemyTimer.start()
 
 func enemy_timer_callback():
-	var enemy = packed_enemy.instance()
-	enemy.init($Entities/Player, $Navigation2D)
-	var enemy_position = $Entities/Player.get_position()
-	while (enemy_position.distance_to($Entities/Player.get_position()) <
-		player_dead_zone_radius):
-		enemy_position = Vector2(
-			rand_range(-$Grid.size.x/2, $Grid.size.x/2),
-			rand_range(-$Grid.size.y/2, $Grid.size.y/2)
-		)
-	enemy.set_position(enemy_position)
-	$Entities.add_child(enemy)
+	if $Entities.has_node("Player"):
+		var enemy = packed_enemy.instance()
+		enemy.init($Entities/Player, $Navigation2D)
+		var enemy_position = $Entities/Player.get_position()
+		while (enemy_position.distance_to($Entities/Player.get_position()) <
+			player_dead_zone_radius):
+			enemy_position = Vector2(
+				rand_range(-$Grid.size.x/2, $Grid.size.x/2),
+				rand_range(-$Grid.size.y/2, $Grid.size.y/2)
+			)
+		enemy.set_position(enemy_position)
+		$Entities.add_child(enemy)
