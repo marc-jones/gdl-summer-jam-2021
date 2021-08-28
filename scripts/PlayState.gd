@@ -32,6 +32,7 @@ func _ready():
 	init_indicator()
 	init_enemy_spawner()
 	add_player()
+	spawn_pickup()
 
 func init_move_timer():
 	var _discard = $MoveTimer.connect("timeout", self, "move_timer_callback")
