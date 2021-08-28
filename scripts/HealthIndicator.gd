@@ -17,4 +17,4 @@ func _process(delta):
 	if update_timer <= 0:
 		lag_value -= (lag_value - current_value) * update_speed
 	$Bar.get_material().set_shader_param("current_value", current_value)
-	$LagBar.get_material().set_shader_param("lag_value", lag_value)
+	$LagBar.get_material().set_shader_param("current_value", lag_value)

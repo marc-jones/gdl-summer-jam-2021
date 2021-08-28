@@ -59,6 +59,7 @@ func init_indicator():
 func add_player():
 	var packed_player = load("res://nodes/Player.tscn")
 	var player = packed_player.instance()
+	player.connect("damage", $HUD/HealthIndicator, "take_damage")
 	player.init($Grid)
 	player.set_grid_position(player_start_grid_position)
 	var _return = player.connect("moving_change", self, "player_move_change")

@@ -23,7 +23,9 @@ animations = [ {
 [sub_resource type="CircleShape2D" id=2]
 radius = 11.0454
 
-[node name="Player" type="StaticBody2D"]
+[node name="Player" type="StaticBody2D" groups=[
+"player",
+]]
 script = ExtResource( 6 )
 
 [node name="Base" type="Node2D" parent="."]

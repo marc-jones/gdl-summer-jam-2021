@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://nodes/Grid.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scripts/PlayState.gd" type="Script" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://assets/sprites/wall_sheet.png" type="Texture" id=5]
 [ext_resource path="res://nodes/FreezeIndicator.tscn" type="PackedScene" id=6]
 [ext_resource path="res://nodes/FireRateIndicator.tscn" type="PackedScene" id=7]
+[ext_resource path="res://nodes/HealthIndicator.tscn" type="PackedScene" id=8]
 
 [sub_resource type="NavigationPolygon" id=16]
 vertices = PoolVector2Array( 32, 32, 0, 32, 0, 0, 32, 0 )
@@ -178,10 +179,13 @@ script = ExtResource( 3 )
 [node name="HUD" type="Node2D" parent="."]
 
 [node name="FireRateIndicator" parent="HUD" instance=ExtResource( 7 )]
-position = Vector2( 88, 269.391 )
+position = Vector2( 88, 428.78 )
+
+[node name="HealthIndicator" parent="HUD" instance=ExtResource( 8 )]
+position = Vector2( 88, 260.411 )
 
 [node name="FreezeIndicator" parent="HUD" instance=ExtResource( 6 )]
-position = Vector2( 88, 384 )
+position = Vector2( 88, 525.43 )
 
 [node name="MoveTimer" type="Timer" parent="."]
 one_shot = true

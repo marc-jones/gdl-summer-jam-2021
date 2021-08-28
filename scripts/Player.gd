@@ -1,10 +1,13 @@
 extends StaticBody2D
 
 signal moving_change
+signal damage
 
 var move_time = 0.4
 var rotation_speed = 1.2*PI
+var damage_amount = 0.1
 
+var health = 1.0
 var grid
 var current_grid_path = []
 var moving = false
@@ -93,3 +96,7 @@ func tracks_rotate():
 	$Base/LeftTrack.flip_v = true
 	$Base/RightTrack.play("moving")
 	$Base/RightTrack.flip_v = false
+
+func damage():
+	health = clamp(health-damage_amount, 0.0, 1.0)
+	emit_signal("damage", damage_amount)

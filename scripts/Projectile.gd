@@ -3,7 +3,7 @@ extends Area2D
 var speed = 200.0
 
 func _ready():
-	connect("body_entered", self, "body_entered_callback")
+	var _discard = connect("body_entered", self, "body_entered_callback")
 
 func _physics_process(delta):
 	position += Vector2.LEFT.rotated(rotation) * delta * speed

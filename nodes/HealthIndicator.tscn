@@ -6,12 +6,12 @@
 [ext_resource path="res://assets/sprites/health_indicator/full_lag_bar.png" type="Texture" id=4]
 [ext_resource path="res://scripts/HealthIndicator.gd" type="Script" id=5]
 
-[sub_resource type="ShaderMaterial" id=2]
+[sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 3 )
 shader_param/current_value = 1.0
 shader_param/full_bar = ExtResource( 4 )
 
-[sub_resource type="ShaderMaterial" id=3]
+[sub_resource type="ShaderMaterial" id=2]
 shader = ExtResource( 3 )
 shader_param/current_value = 0.861
 shader_param/full_bar = ExtResource( 1 )
@@ -23,9 +23,9 @@ script = ExtResource( 5 )
 texture = ExtResource( 2 )
 
 [node name="LagBar" type="Sprite" parent="."]
-material = SubResource( 2 )
+material = SubResource( 1 )
 texture = ExtResource( 4 )
 
 [node name="Bar" type="Sprite" parent="."]
-material = SubResource( 3 )
+material = SubResource( 2 )
 texture = ExtResource( 1 )
