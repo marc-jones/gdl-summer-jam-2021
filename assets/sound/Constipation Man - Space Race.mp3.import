@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Constipation Man - Space Race.mp3-9a02d7f8e48bf77dc5201e65e110af57.mp3str"
+
+[deps]
+
+source_file="res://assets/sound/Constipation Man - Space Race.mp3"
+dest_files=[ "res://.import/Constipation Man - Space Race.mp3-9a02d7f8e48bf77dc5201e65e110af57.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

@@ -10,9 +10,9 @@ var sound_library = {
 	"freeze": ["res://assets/sound/freeze.wav", -5]
 }
 
-#var music_path = preload("res://assets/sound/your-call-by-kevin-macleod-from-filmmusic-io.mp3")
+var music_path = preload("res://assets/sound/Constipation Man - Space Race.mp3")
 
-#var music_volume = -20
+var music_volume = -25
 
 var stream_library = {}
 
@@ -25,9 +25,9 @@ func _ready():
 		sound_node.set_bus("FX")
 		add_child(sound_node)
 		stream_library[key] = sound_node
-#	$Music.volume_db = music_volume
-#	$Music.set_stream(music_path)
-#	$Music.play()
+	$Music.volume_db = music_volume
+	$Music.set_stream(music_path)
+	$Music.play()
 
 func play_sound(sound_str):
 	if sound_str in stream_library:
