@@ -1,0 +1,145 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://nodes/Player.tscn" type="PackedScene" id=15]
+[ext_resource path="res://assets/sprites/indicator/horizontal.png" type="Texture" id=16]
+[ext_resource path="res://assets/sprites/indicator/arrow_w.png" type="Texture" id=17]
+[ext_resource path="res://assets/sprites/floor.png" type="Texture" id=18]
+[ext_resource path="res://assets/sprites/indicator/vertical.png" type="Texture" id=19]
+[ext_resource path="res://assets/sprites/indicator/corner_nw.png" type="Texture" id=20]
+[ext_resource path="res://assets/sprites/indicator/corner_se.png" type="Texture" id=21]
+[ext_resource path="res://assets/sprites/indicator/start_e.png" type="Texture" id=22]
+[ext_resource path="res://assets/fonts/TitleFont.tres" type="DynamicFont" id=23]
+
+[sub_resource type="TileSet" id=1]
+0/name = "floor.png 0"
+0/texture = ExtResource( 18 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 1, 1, 1, 1 )
+0/region = Rect2( 0, 0, 32, 32 )
+0/tile_mode = 0
+0/occluder_offset = Vector2( 0, 0 )
+0/navigation_offset = Vector2( 0, 0 )
+0/shape_offset = Vector2( 0, 0 )
+0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+0/shape_one_way = false
+0/shape_one_way_margin = 0.0
+0/shapes = [  ]
+0/z_index = 0
+
+[node name="Banner" type="Node2D"]
+
+[node name="TileMap" type="TileMap" parent="."]
+visible = false
+position = Vector2( 192, 288 )
+scale = Vector2( 3, 3 )
+tile_set = SubResource( 1 )
+cell_size = Vector2( 32, 32 )
+format = 1
+tile_data = PoolIntArray( -131074, 0, 0, -131073, 0, 0, -196608, 0, 0, -196607, 0, 0, -196606, 0, 0, -196605, 0, 0, -196604, 0, 0, -65538, 0, 0, -65537, 0, 0, -131072, 0, 0, -131071, 0, 0, -131070, 0, 0, -131069, 0, 0, -131068, 0, 0, -2, 0, 0, -1, 0, 0, -65536, 0, 0, -65535, 0, 0, -65534, 0, 0, -65533, 0, 0, -65532, 0, 0, 65534, 0, 0, 65535, 0, 0, 0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 131070, 0, 0, 131071, 0, 0, 65536, 0, 0, 65537, 0, 0, 65538, 0, 0, 65539, 0, 0, 65540, 0, 0 )
+
+[node name="Indicator" type="Node2D" parent="TileMap"]
+position = Vector2( -480, -192 )
+
+[node name="corner_se" type="Sprite" parent="TileMap/Indicator"]
+position = Vector2( 560, 176 )
+texture = ExtResource( 21 )
+
+[node name="horizontal2" type="Sprite" parent="TileMap/Indicator"]
+position = Vector2( 592, 176 )
+texture = ExtResource( 16 )
+
+[node name="arrow_w" type="Sprite" parent="TileMap/Indicator"]
+position = Vector2( 624, 176 )
+texture = ExtResource( 17 )
+
+[node name="horizontal" type="Sprite" parent="TileMap/Indicator"]
+position = Vector2( 528, 240 )
+texture = ExtResource( 16 )
+
+[node name="corner_nw" type="Sprite" parent="TileMap/Indicator"]
+position = Vector2( 560, 240 )
+texture = ExtResource( 20 )
+
+[node name="start_e" type="Sprite" parent="TileMap/Indicator"]
+position = Vector2( 496, 240 )
+texture = ExtResource( 22 )
+
+[node name="vertical" type="Sprite" parent="TileMap/Indicator"]
+position = Vector2( 560, 208 )
+texture = ExtResource( 19 )
+
+[node name="Player" parent="TileMap" instance=ExtResource( 15 )]
+position = Vector2( 16, 48 )
+
+[node name="Title" type="Label" parent="."]
+visible = false
+anchor_right = 1.0
+margin_left = 32.0
+margin_top = 32.0
+margin_right = 368.0
+margin_bottom = 368.0
+custom_fonts/font = ExtResource( 23 )
+custom_colors/font_color = Color( 1, 0.847059, 0.729412, 1 )
+text = "STOP START SHOOT"
+align = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TileMap2" type="TileMap" parent="."]
+position = Vector2( 704, 128 )
+scale = Vector2( 2, 2 )
+tile_set = SubResource( 1 )
+cell_size = Vector2( 32, 32 )
+format = 1
+tile_data = PoolIntArray( -65547, 0, 0, -65546, 0, 0, -65545, 0, 0, -65544, 0, 0, -65543, 0, 0, -65542, 0, 0, -65541, 0, 0, -65540, 0, 0, -65539, 0, 0, -65538, 0, 0, -65537, 0, 0, -131072, 0, 0, -131071, 0, 0, -131070, 0, 0, -131069, 0, 0, -131068, 0, 0, -11, 0, 0, -10, 0, 0, -9, 0, 0, -8, 0, 0, -7, 0, 0, -6, 0, 0, -5, 0, 0, -4, 0, 0, -3, 0, 0, -2, 0, 0, -1, 0, 0, -65536, 0, 0, -65535, 0, 0, -65534, 0, 0, -65533, 0, 0, -65532, 0, 0, 65525, 0, 0, 65526, 0, 0, 65527, 0, 0, 65528, 0, 0, 65529, 0, 0, 65530, 0, 0, 65531, 0, 0, 65532, 0, 0, 65533, 0, 0, 65534, 0, 0, 65535, 0, 0, 0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 131061, 0, 0, 131062, 0, 0, 131063, 0, 0, 131064, 0, 0, 131065, 0, 0, 131066, 0, 0, 131067, 0, 0, 131068, 0, 0, 131069, 0, 0, 131070, 0, 0, 131071, 0, 0, 65536, 0, 0, 65537, 0, 0, 65538, 0, 0, 65539, 0, 0, 65540, 0, 0, 196597, 0, 0, 196598, 0, 0, 196599, 0, 0, 196600, 0, 0, 196601, 0, 0, 196602, 0, 0, 196603, 0, 0, 196604, 0, 0, 196605, 0, 0, 196606, 0, 0, 196607, 0, 0, 131072, 0, 0, 131073, 0, 0, 131074, 0, 0, 131075, 0, 0, 131076, 0, 0 )
+
+[node name="Indicator" type="Node2D" parent="TileMap2"]
+position = Vector2( -480, -192 )
+
+[node name="corner_se" type="Sprite" parent="TileMap2/Indicator"]
+position = Vector2( 560, 176 )
+texture = ExtResource( 21 )
+
+[node name="horizontal2" type="Sprite" parent="TileMap2/Indicator"]
+position = Vector2( 592, 176 )
+texture = ExtResource( 16 )
+
+[node name="arrow_w" type="Sprite" parent="TileMap2/Indicator"]
+position = Vector2( 624, 176 )
+texture = ExtResource( 17 )
+
+[node name="horizontal" type="Sprite" parent="TileMap2/Indicator"]
+position = Vector2( 528, 240 )
+texture = ExtResource( 16 )
+
+[node name="corner_nw" type="Sprite" parent="TileMap2/Indicator"]
+position = Vector2( 560, 240 )
+texture = ExtResource( 20 )
+
+[node name="start_e" type="Sprite" parent="TileMap2/Indicator"]
+position = Vector2( 496, 240 )
+texture = ExtResource( 22 )
+
+[node name="vertical" type="Sprite" parent="TileMap2/Indicator"]
+position = Vector2( 560, 208 )
+texture = ExtResource( 19 )
+
+[node name="Player" parent="TileMap2" instance=ExtResource( 15 )]
+position = Vector2( 16, 48 )
+
+[node name="Title2" type="Label" parent="."]
+anchor_right = 1.0
+margin_left = 32.0
+margin_top = 32.0
+margin_right = 848.0
+margin_bottom = 368.0
+custom_fonts/font = ExtResource( 23 )
+custom_colors/font_color = Color( 1, 0.847059, 0.729412, 1 )
+text = "STOP START SHOOT"
+align = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
