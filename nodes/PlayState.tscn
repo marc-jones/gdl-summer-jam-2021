@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=35 format=2]
 
 [ext_resource path="res://nodes/Grid.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scripts/PlayState.gd" type="Script" id=2]
@@ -9,42 +9,50 @@
 [ext_resource path="res://nodes/FireRateIndicator.tscn" type="PackedScene" id=7]
 [ext_resource path="res://nodes/HealthIndicator.tscn" type="PackedScene" id=8]
 [ext_resource path="res://assets/fonts/ThaleahFat.ttf" type="DynamicFontData" id=9]
+[ext_resource path="res://assets/sprites/menu_buttons/tweet_hover.png" type="Texture" id=10]
+[ext_resource path="res://assets/sprites/menu_buttons/menu_pressed.png" type="Texture" id=11]
+[ext_resource path="res://assets/sprites/menu_buttons/replay_hover.png" type="Texture" id=12]
+[ext_resource path="res://assets/sprites/menu_buttons/replay_pressed.png" type="Texture" id=13]
+[ext_resource path="res://assets/sprites/menu_buttons/tweet_pressed.png" type="Texture" id=14]
+[ext_resource path="res://assets/sprites/menu_buttons/menu_normal.png" type="Texture" id=15]
+[ext_resource path="res://assets/sprites/menu_buttons/menu_hover.png" type="Texture" id=16]
+[ext_resource path="res://assets/sprites/menu_buttons/tweet_normal.png" type="Texture" id=17]
+[ext_resource path="res://assets/fonts/TitleFont.tres" type="DynamicFont" id=18]
+[ext_resource path="res://assets/sprites/menu_buttons/replay_normal.png" type="Texture" id=19]
+[ext_resource path="res://assets/fonts/TextFont.tres" type="DynamicFont" id=20]
 
-[sub_resource type="NavigationPolygon" id=16]
+[sub_resource type="NavigationPolygon" id=19]
 vertices = PoolVector2Array( 32, 32, 0, 32, 0, 0, 32, 0 )
 polygons = [ PoolIntArray( 0, 1, 2, 3 ) ]
 
-[sub_resource type="ConvexPolygonShape2D" id=5]
-points = PoolVector2Array( 0, -32, 32, -32, 32, -32, 0, -32 )
-
-[sub_resource type="ConvexPolygonShape2D" id=6]
+[sub_resource type="ConvexPolygonShape2D" id=20]
 points = PoolVector2Array( 24, 32, 8, 32, 8, 8, 24, 8 )
 
-[sub_resource type="ConvexPolygonShape2D" id=7]
+[sub_resource type="ConvexPolygonShape2D" id=21]
 points = PoolVector2Array( 24, 24, 0, 24, 0, 8, 24, 8 )
 
-[sub_resource type="ConvexPolygonShape2D" id=8]
+[sub_resource type="ConvexPolygonShape2D" id=22]
 points = PoolVector2Array( 24, 24, 8, 24, 8, 0, 24, 0 )
 
-[sub_resource type="ConvexPolygonShape2D" id=9]
+[sub_resource type="ConvexPolygonShape2D" id=23]
 points = PoolVector2Array( 32, 24, 8, 24, 8, 8, 32, 8 )
 
-[sub_resource type="ConvexPolygonShape2D" id=10]
-points = PoolVector2Array( 0, 8, 24, 8, 24, 32, 8, 32, 8, 24, 0, 24 )
+[sub_resource type="ConvexPolygonShape2D" id=24]
+points = PoolVector2Array( 0, 8, 0, 8, 24, 8, 24, 32, 8, 32, 8, 24, 0, 24 )
 
-[sub_resource type="ConvexPolygonShape2D" id=11]
+[sub_resource type="ConvexPolygonShape2D" id=25]
 points = PoolVector2Array( 0, 8, 8, 8, 8, 0, 24, 0, 24, 24, 0, 24 )
 
-[sub_resource type="ConvexPolygonShape2D" id=12]
+[sub_resource type="ConvexPolygonShape2D" id=26]
 points = PoolVector2Array( 24, 0, 24, 8, 32, 8, 32, 24, 8, 24, 8, 0 )
 
-[sub_resource type="ConvexPolygonShape2D" id=13]
-points = PoolVector2Array( 32, 8, 32, 24, 24, 24, 24, 32, 8, 32, 8, 8 )
+[sub_resource type="ConvexPolygonShape2D" id=27]
+points = PoolVector2Array( 32, 8, 32, 24, 24, 24, 24, 32, 8, 32, 8, 8, 8, 8 )
 
-[sub_resource type="ConvexPolygonShape2D" id=14]
+[sub_resource type="ConvexPolygonShape2D" id=28]
 points = PoolVector2Array( 32, 24, 0, 24, 0, 8, 32, 8 )
 
-[sub_resource type="ConvexPolygonShape2D" id=15]
+[sub_resource type="ConvexPolygonShape2D" id=29]
 points = PoolVector2Array( 24, 32, 8, 32, 8, 0, 24, 0 )
 
 [sub_resource type="TileSet" id=3]
@@ -56,7 +64,7 @@ points = PoolVector2Array( 24, 32, 8, 32, 8, 0, 24, 0 )
 0/tile_mode = 0
 0/occluder_offset = Vector2( 0, 0 )
 0/navigation_offset = Vector2( 0, 0 )
-0/navigation = SubResource( 16 )
+0/navigation = SubResource( 19 )
 0/shape_offset = Vector2( 0, 0 )
 0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
 0/shape_one_way = false
@@ -82,74 +90,68 @@ points = PoolVector2Array( 24, 32, 8, 32, 8, 0, 24, 0 )
 1/navigation_offset = Vector2( 0, 0 )
 1/shape_offset = Vector2( 0, 0 )
 1/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-1/shape = SubResource( 5 )
+1/shape = SubResource( 20 )
 1/shape_one_way = false
 1/shape_one_way_margin = 1.0
 1/shapes = [ {
-"autotile_coord": Vector2( 2, 4 ),
-"one_way": false,
-"one_way_margin": 1.0,
-"shape": SubResource( 5 ),
-"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
-}, {
 "autotile_coord": Vector2( 0, 0 ),
 "one_way": false,
 "one_way_margin": 1.0,
-"shape": SubResource( 6 ),
+"shape": SubResource( 20 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 }, {
 "autotile_coord": Vector2( 1, 0 ),
 "one_way": false,
 "one_way_margin": 1.0,
-"shape": SubResource( 7 ),
+"shape": SubResource( 21 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 }, {
 "autotile_coord": Vector2( 2, 0 ),
 "one_way": false,
 "one_way_margin": 1.0,
-"shape": SubResource( 8 ),
+"shape": SubResource( 22 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 }, {
 "autotile_coord": Vector2( 3, 0 ),
 "one_way": false,
 "one_way_margin": 1.0,
-"shape": SubResource( 9 ),
+"shape": SubResource( 23 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 }, {
 "autotile_coord": Vector2( 0, 1 ),
 "one_way": false,
 "one_way_margin": 1.0,
-"shape": SubResource( 10 ),
+"shape": SubResource( 24 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 }, {
 "autotile_coord": Vector2( 1, 1 ),
 "one_way": false,
 "one_way_margin": 1.0,
-"shape": SubResource( 11 ),
+"shape": SubResource( 25 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 }, {
 "autotile_coord": Vector2( 2, 1 ),
 "one_way": false,
 "one_way_margin": 1.0,
-"shape": SubResource( 12 ),
+"shape": SubResource( 26 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 }, {
 "autotile_coord": Vector2( 3, 1 ),
 "one_way": false,
 "one_way_margin": 1.0,
-"shape": SubResource( 13 ),
+"shape": SubResource( 27 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 }, {
 "autotile_coord": Vector2( 0, 2 ),
 "one_way": false,
 "one_way_margin": 1.0,
-"shape": SubResource( 14 ),
+"shape": SubResource( 28 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 }, {
 "autotile_coord": Vector2( 1, 2 ),
 "one_way": false,
 "one_way_margin": 1.0,
-"shape": SubResource( 15 ),
+"shape": SubResource( 29 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 1/z_index = 0
@@ -276,6 +278,97 @@ __meta__ = {
 
 [node name="FreezeIndicator" parent="HUD" instance=ExtResource( 6 )]
 position = Vector2( 88, 540 )
+
+[node name="DeathMenu" type="Node2D" parent="."]
+visible = false
+position = Vector2( 288, 96 )
+
+[node name="Background" type="ColorRect" parent="DeathMenu"]
+modulate = Color( 1, 1, 1, 0.588235 )
+margin_left = -288.0
+margin_top = -96.0
+margin_right = 736.0
+margin_bottom = 504.0
+color = Color( 0.227451, 0.168627, 0.231373, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DeathMenu"]
+margin_left = -32.0
+margin_right = 480.0
+margin_bottom = 380.0
+custom_constants/separation = 32
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Died" type="Label" parent="DeathMenu/VBoxContainer"]
+margin_right = 512.0
+margin_bottom = 110.0
+custom_fonts/font = ExtResource( 18 )
+custom_colors/font_color = Color( 1, 0.847059, 0.729412, 1 )
+text = "You Died!"
+align = 1
+
+[node name="Explanation" type="Label" parent="DeathMenu/VBoxContainer"]
+margin_top = 142.0
+margin_right = 512.0
+margin_bottom = 172.0
+custom_fonts/font = ExtResource( 20 )
+custom_colors/font_color = Color( 1, 0.847059, 0.729412, 1 )
+text = "You scored 000 points"
+align = 1
+autowrap = true
+
+[node name="CenterContainer" type="CenterContainer" parent="DeathMenu/VBoxContainer"]
+margin_top = 204.0
+margin_right = 512.0
+margin_bottom = 380.0
+
+[node name="VBox" type="VBoxContainer" parent="DeathMenu/VBoxContainer/CenterContainer"]
+margin_left = 128.0
+margin_right = 384.0
+margin_bottom = 176.0
+custom_constants/separation = 16
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Replay" type="TextureButton" parent="DeathMenu/VBoxContainer/CenterContainer/VBox"]
+margin_right = 256.0
+margin_bottom = 48.0
+texture_normal = ExtResource( 19 )
+texture_pressed = ExtResource( 13 )
+texture_hover = ExtResource( 12 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tweet" type="TextureButton" parent="DeathMenu/VBoxContainer/CenterContainer/VBox"]
+margin_top = 64.0
+margin_right = 256.0
+margin_bottom = 112.0
+texture_normal = ExtResource( 17 )
+texture_pressed = ExtResource( 14 )
+texture_hover = ExtResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Menu" type="TextureButton" parent="DeathMenu/VBoxContainer/CenterContainer/VBox"]
+margin_top = 128.0
+margin_right = 256.0
+margin_bottom = 176.0
+texture_normal = ExtResource( 15 )
+texture_pressed = ExtResource( 11 )
+texture_hover = ExtResource( 16 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tween" type="Tween" parent="DeathMenu"]
 
 [node name="MoveTimer" type="Timer" parent="."]
 one_shot = true

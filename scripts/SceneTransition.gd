@@ -8,7 +8,7 @@ var callback_function_str
 
 func _ready():
 	$ColorRect.rect_size = $ColorRect.get_viewport_rect().size
-	$Tween.connect("tween_completed", self, "transition_finished_callback")
+	var _discard = $Tween.connect("tween_completed", self, "transition_finished_callback")
 
 func set_to_black():
 	$ColorRect.get_material().set_shader_param("alpha", 1.0)
@@ -28,5 +28,5 @@ func fade_to_transparent(input_callback_function_str):
 	$Tween.start()
 	callback_function_str = input_callback_function_str
 
-func transition_finished_callback(object, key):
+func transition_finished_callback(_object, _key):
 	emit_signal("transition_finished", callback_function_str)

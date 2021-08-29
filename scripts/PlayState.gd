@@ -1,5 +1,8 @@
 extends Node2D
 
+signal quit
+signal restart
+
 var floor_textures = [
 	preload("res://assets/sprites/floor.png")
 ]
@@ -25,6 +28,7 @@ var map_midpoint
 var score = 0
 
 func _ready():
+	init_death_menu()
 	init_move_timer()
 	init_projectile_timer()
 	init_pickup_timer()
@@ -203,4 +207,41 @@ func enemy_died_callback():
 func player_died_callback(player_death_particles):
 	$Indicator.start_new_path(Vector2(0, 0))
 	$Indicator.refresh_trail()
-	print(player_death_particles)
+	player_death_particles.connect("tree_exited", self, "display_death_menu")
+
+func display_death_menu():
+	# Set score
+	$DeathMenu/VBoxContainer/Explanation.text = (
+		"You scored " + str(score) + " points"
+	)
+	# Set tween in
+	var tween = $DeathMenu/Tween
+	tween.interpolate_property(
+		$DeathMenu,
+		"modulate",
+		Color(1, 1, 1, 0),
+		Color(1, 1, 1, 1),
+		0.4,
+		Tween.TRANS_LINEAR,
+		Tween.EASE_IN_OUT
+	)
+	$DeathMenu.modulate = Color(1, 1, 1, 0)
+	$DeathMenu.show()
+	tween.start()
+
+func init_death_menu():
+	var _discard = $DeathMenu/VBoxContainer/CenterContainer/VBox/Menu.connect(
+		"button_up", self, "emit_signal", ["quit"]
+	)
+	_discard = $DeathMenu/VBoxContainer/CenterContainer/VBox/Replay.connect(
+		"button_up", self, "emit_signal", ["restart"]
+	)
+	_discard = $DeathMenu/VBoxContainer/CenterContainer/VBox/Tweet.connect(
+		"button_up", self, "tweet"
+	)
+
+func tweet():
+	var _return = OS.shell_open("http://twitter.com/share?text=" +
+		"I scored " + str(score) + " in Start Stop Shoot!&url=" +
+		"https://manicmoleman.itch.io" +
+		"&hashtags=GDLSummerJam,GodotEngine")

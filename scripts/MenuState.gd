@@ -1,9 +1,10 @@
 extends Node2D
 
 signal start_game
+signal start_credits
 
 func _ready():
-	$Buttons/HBox/Start.connect(
+	var _discard = $Buttons/HBox/Start.connect(
 		"button_up", self, "emit_signal", ["start_game"])
 
 func _process(_delta):
