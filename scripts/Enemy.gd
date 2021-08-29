@@ -13,13 +13,16 @@ onready var audio = get_tree().get_root().get_node("Audio")
 
 func _ready():
 	add_to_group("enemies")
+	$AnimationPlayer.play("spawn")
 
 func init(player_ref, nav_ref):
 	player = player_ref
 	nav = nav_ref
 
 func _physics_process(_delta):
-	if is_instance_valid(player) and not player.is_queued_for_deletion():
+	if (is_instance_valid(player) and
+		not player.is_queued_for_deletion() and
+		not $AnimationPlayer.is_playing()):
 		var path = nav.get_simple_path(
 			nav.get_closest_point(nav.to_local(get_global_position())),
 			nav.to_local(player.get_global_position())
