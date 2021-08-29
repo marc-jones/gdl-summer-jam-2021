@@ -2,7 +2,7 @@ extends Node2D
 
 var sound_library = {
 	"powerup": ["res://assets/sound/powerup.wav", -5],
-	"shoot": ["res://assets/sound/shoot.wav", -5],
+	"shoot": ["res://assets/sound/shoot.wav", -10],
 	"explosion": ["res://assets/sound/explosion.wav", -5],
 	"hit": ["res://assets/sound/hit.wav", -5],
 	"blip": ["res://assets/sound/blip.wav", -5],

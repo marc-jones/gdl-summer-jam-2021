@@ -14,7 +14,6 @@ var packed_projectile = preload("res://nodes/Projectile.tscn")
 var projectile_offset = Vector2(-24, 0)
 var wall_width = 10
 var packed_enemy = preload("res://nodes/Enemy.tscn")
-var enemy_timer = 1.6
 var player_dead_zone_radius = 200
 var packed_pickup = preload("res://nodes/Pickup.tscn")
 var pickup_timer = 5.0
@@ -23,6 +22,11 @@ var max_projectile_timer = 0.05
 var min_projectile_timer = 0.8
 var projectile_timer_decay_rate = 0.025
 
+var max_enemy_timer = 1.6
+var min_enemy_timer = 0.6
+var score_max = 150.0
+
+var enemy_timer = max_enemy_timer
 var projectile_timer = (max_projectile_timer + min_projectile_timer) / 2
 var map_midpoint
 var score = 0
@@ -218,6 +222,7 @@ func enemy_timer_callback():
 func enemy_died_callback():
 	add_screen_shake_trauma(0.6)
 	score += 1
+	enemy_timer = lerp(max_enemy_timer, min_enemy_timer, min(score / score_max, 1.0))
 	$HUD/Score/Number.text = str(score)
 
 func player_died_callback(player_death_particles):
