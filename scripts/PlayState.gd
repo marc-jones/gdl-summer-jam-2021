@@ -27,9 +27,19 @@ var projectile_timer = (max_projectile_timer + min_projectile_timer) / 2
 var map_midpoint
 var score = 0
 
+# Screen shake parameters
+var decay = 1.0
+var max_offset = Vector2(10.0, 10.0)
+var trauma = 0.0
+var trauma_power = 2
+onready var noise = OpenSimplexNoise.new()
+var noise_y = 0
+
 onready var audio = get_tree().get_root().get_node("Audio")
 
 func _ready():
+	randomize()
+	init_shake_noise()
 	init_death_menu()
 	init_move_timer()
 	init_projectile_timer()
@@ -114,6 +124,7 @@ func _input(event):
 			$Entities/Player.update_mouse_position(event.position)
 
 func _process(delta):
+	screen_shake(delta)
 	update_rates(delta)
 	update_hud()
 
@@ -205,6 +216,7 @@ func enemy_timer_callback():
 		$Entities.add_child(enemy)
 
 func enemy_died_callback():
+	add_screen_shake_trauma(0.6)
 	score += 1
 	$HUD/Score/Number.text = str(score)
 
@@ -258,3 +270,22 @@ func quit():
 func restart():
 	audio.play_sound("blip")
 	emit_signal("restart")
+
+func init_shake_noise():
+	noise.seed = randi()
+	noise.period = 4
+	noise.octaves = 2
+
+func shake():
+	var amount = pow(trauma, trauma_power)
+	noise_y += 1
+	position.x = max_offset.x * amount * noise.get_noise_2d(noise.seed*2, noise_y)
+	position.y = max_offset.y * amount * noise.get_noise_2d(noise.seed*3, noise_y)
+
+func add_screen_shake_trauma(amount):
+	trauma = min(trauma + amount, 1.0)
+
+func screen_shake(delta):
+	if trauma:
+		trauma = max(trauma - decay * delta, 0)
+		shake()
