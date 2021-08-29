@@ -24,6 +24,8 @@ var grid
 var wall_positions
 var active = true
 
+onready var audio = get_tree().get_root().get_node("Audio")
+
 func _ready():
 	pass
 
@@ -94,10 +96,12 @@ func input(diff):
 	var new_position = current_path.back() + diff
 	if len(current_path) > 1 and new_position == current_path[-2]:
 		current_path.pop_back()
+		audio.play_sound("blip_reverse")
 	elif (not new_position in current_path and
 		grid.test_grid_position_in_range(new_position) and
 		not new_position in wall_positions):
 		current_path.append(new_position)
+		audio.play_sound("blip")
 	refresh_trail()
 
 func start_new_path(start_grid_position):

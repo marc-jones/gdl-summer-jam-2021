@@ -6,6 +6,8 @@ var tween_time = 0.5
 
 var pickup_type
 
+onready var audio = get_tree().get_root().get_node("Audio")
+
 func _ready():
 	var _discard = connect("area_entered", self, "area_entered_callback")
 
@@ -19,6 +21,7 @@ func fire_rate_pickup():
 
 func area_entered_callback(area):
 	if area.is_in_group("player"):
+		audio.play_sound("powerup")
 		destroy()
 
 func destroy():

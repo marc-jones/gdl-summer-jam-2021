@@ -9,6 +9,8 @@ var player
 var nav
 var velocity
 
+onready var audio = get_tree().get_root().get_node("Audio")
+
 func _ready():
 	add_to_group("enemies")
 
@@ -37,3 +39,8 @@ func destroy():
 		particles.set_position(get_position())
 		get_parent().add_child(particles)
 		queue_free()
+
+func shot():
+	emit_signal("enemy_killed")
+	audio.play_sound("explosion")
+	destroy()

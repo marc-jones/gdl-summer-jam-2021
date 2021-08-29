@@ -63,10 +63,13 @@ custom_colors/font_color = Color( 1, 0.847059, 0.729412, 1 )
 text = "Design, code, and art by Marc Jones
 
 Colour palette: CyberGum6 by Royal_Naym
-https://lospec.com/palette-list/cybergum6
+lospec.com/palette-list/cybergum6
 
 Font: Thaleah Fat Font
-https://fontmeme.com/fonts/thaleah-fat-font "
+fontmeme.com/fonts/thaleah-fat-font 
+
+Sound effects created with JFXR
+jfxr.frozenfractal.com"
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false

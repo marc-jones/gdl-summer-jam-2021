@@ -27,6 +27,8 @@ var projectile_timer = (max_projectile_timer + min_projectile_timer) / 2
 var map_midpoint
 var score = 0
 
+onready var audio = get_tree().get_root().get_node("Audio")
+
 func _ready():
 	init_death_menu()
 	init_move_timer()
@@ -86,6 +88,7 @@ func player_move_change(moving_bool):
 	if moving_bool:
 		pass
 	else:
+		audio.play_sound("freeze")
 		$Indicator.set_active(true)
 		$Indicator.start_new_path(
 			$Grid.get_grid_position($Entities/Player.get_position())
@@ -142,6 +145,7 @@ func spawn_projectile():
 	)
 	projectile.set_rotation(projectile_angle)
 	$Projectiles.add_child(projectile)
+	audio.play_sound("shoot")
 
 func pickup_timer_callback():
 	if $Entities.has_node("Player"):
@@ -231,17 +235,26 @@ func display_death_menu():
 
 func init_death_menu():
 	var _discard = $DeathMenu/VBoxContainer/CenterContainer/VBox/Menu.connect(
-		"button_up", self, "emit_signal", ["quit"]
+		"button_up", self, "quit"
 	)
 	_discard = $DeathMenu/VBoxContainer/CenterContainer/VBox/Replay.connect(
-		"button_up", self, "emit_signal", ["restart"]
+		"button_up", self, "restart"
 	)
 	_discard = $DeathMenu/VBoxContainer/CenterContainer/VBox/Tweet.connect(
 		"button_up", self, "tweet"
 	)
 
 func tweet():
+	audio.play_sound("blip")
 	var _return = OS.shell_open("http://twitter.com/share?text=" +
 		"I scored " + str(score) + " in Start Stop Shoot!&url=" +
 		"https://manicmoleman.itch.io" +
 		"&hashtags=GDLSummerJam,GodotEngine")
+
+func quit():
+	audio.play_sound("blip")
+	emit_signal("quit")
+
+func restart():
+	audio.play_sound("blip")
+	emit_signal("restart")

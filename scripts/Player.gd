@@ -20,6 +20,8 @@ var moving = false
 var mouse_position
 var grid_position
 
+onready var audio = get_tree().get_root().get_node("Audio")
+
 func _ready():
 	var _return = $Tween.connect("tween_all_completed", self, "tween_to_next_grid_position")
 
@@ -104,6 +106,7 @@ func tracks_rotate():
 	$Base/RightTrack.flip_v = false
 
 func damage():
+	audio.play_sound("hit")
 	health = clamp(health-damage_amount, 0, 10)
 	emit_signal("player_health_change", health/10.0)
 	if health == 0:
@@ -115,6 +118,7 @@ func heal():
 
 func destroy():
 	if not is_queued_for_deletion():
+		audio.play_sound("explosion")
 		var particles = packed_death_particles.instance()
 		particles.set_position(get_position())
 		get_parent().add_child(particles)

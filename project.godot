@@ -14,6 +14,10 @@ config/name="grid-tank"
 run/main_scene="res://nodes/SceneManager.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+Audio="*res://nodes/Audio.tscn"
+
 [display]
 
 mouse_cursor/custom_image="res://assets/sprites/cursor.png"
